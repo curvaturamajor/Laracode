@@ -57,7 +57,7 @@
 
     <a class="btn page-item btn-outline-primary" href="{{ $students->appends(['order_by' => $order_by, 'direction' => $direction])->url($students->lastPage()) }}">>></a>
 </div>
-<!-- Add Student Modal -->
+<!-- öğrenci ekleme modalı -->
 <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
