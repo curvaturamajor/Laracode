@@ -3,12 +3,12 @@
 <table border="1" class= "col-6">
 <thead>
     <tr>
-        <th><a href="{{ route('index', ['order_by' => 'sid', 'direction' => ($order_by == 'sid' && $direction == 'asc') ? 'desc' : 'asc']) }}">No</a></th>
-        <th><a href="{{ route('index', ['order_by' => 'fname', 'direction' => ($order_by == 'fname' && $direction == 'asc') ? 'desc' : 'asc']) }}">Adı</a></th>
-        <th><a href="{{ route('index', ['order_by' => 'lname', 'direction' => ($order_by == 'lname' && $direction == 'asc') ? 'desc' : 'asc']) }}">Soyadı</a></th>
-        <th><a href="{{ route('index', ['order_by' => 'birthplace', 'direction' => ($order_by == 'birthplace' && $direction == 'asc') ? 'desc' : 'asc']) }}">Doğum Yeri</a></th>
-        <th><a href="{{ route('index', ['order_by' => 'birthDate', 'direction' => ($order_by == 'birthDate' && $direction == 'asc') ? 'desc' : 'asc']) }}">Doğum tarihi</a></th>
-        <th></th>
+        <th><a href="{{ route('index', ['order_by' => 'sid', 'direction' => ($order_by == 'sid' && $direction == 'asc') ? 'desc' : 'asc', 'page' => $students->currentPage() ]) }}">No</a></th>
+        <th><a href="{{ route('index', ['order_by' => 'fname', 'direction' => ($order_by == 'fname' && $direction == 'asc') ? 'desc' : 'asc', 'page' => $students->currentPage()]) }}">Adı</a></th>
+        <th><a href="{{ route('index', ['order_by' => 'lname', 'direction' => ($order_by == 'lname' && $direction == 'asc') ? 'desc' : 'asc', 'page' => $students->currentPage()]) }}">Soyadı</a></th>
+        <th><a href="{{ route('index', ['order_by' => 'birthplace', 'direction' => ($order_by == 'birthplace' && $direction == 'asc') ? 'desc' : 'asc', 'page' => $students->currentPage()]) }}">Doğum Yeri</a></th>
+        <th><a href="{{ route('index', ['order_by' => 'birthDate', 'direction' => ($order_by == 'birthDate' && $direction == 'asc') ? 'desc' : 'asc', 'page' => $students->currentPage()]) }}">Doğum tarihi</a></th>
+        <th><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStudentModal">Oluştur</button></th>
         <th></th>
     </tr>
 </thead>
@@ -57,33 +57,42 @@
 
     <a class="btn page-item btn-outline-primary" href="{{ $students->appends(['order_by' => $order_by, 'direction' => $direction])->url($students->lastPage()) }}">>></a>
 </div>
-
-<h2>Yeni Öğrenci Ekle</h2>
-<form action="{{ route('add-student') }}" method="post">
-    @csrf
-    <div class="mb-1 col-2">
+<!-- Add Student Modal -->
+<div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addStudentModalLabel">Yeni Öğrenci Ekle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('add-student') }}" method="post">
+            @csrf
+            <div class="mb-1 col-5">
         <label for="fname" class="form-label">Adı</label>
         <input type="text" class="form-control" id="fname" name="fname" required>
     </div>
-    <div class="mb-1 col-2">
+    <div class="mb-1 col-5">
         <label for="lname" class="form-label">Soyadı</label>
         <input type="text" class="form-control" id="lname" name="lname" required>
     </div>
-    <div class="mb-1 col-2">
+    <div class="mb-1 col-5">
         <label for="birthplace" class="form-label">Doğum Yeri</label>
         <input type="text" class="form-control" id="birthplace" name="birthplace" required>
     </div>
-    <div class="mb-1 col-2">
+    <div class="mb-1 col-5">
         <label for="birthDate" class="form-label">Doğum Tarihi</label>
         <input type="date" class="form-control" id="birthDate" name="birthDate" required>
     </div>
-    <button type="submit" class="btn btn-primary">Oluştur</button>
-</form>
-
-
-
-
-
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="submit" class="btn btn-primary">Ekle</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--
 <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
